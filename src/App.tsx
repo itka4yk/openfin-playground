@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {apps} from "./apps/apps";
 import {AppWrapper} from "./apps/AppWrapper";
 import {OpenFinProvider} from "./pages/OpenFinProvider";
+import {ExternalProvider} from "./pages/ExternalProvider";
 
 
 // window.fin.Platform.
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
         path: '/provider',
         element: <OpenFinProvider/>,
         children: []
+    },
+    {
+        path: '/externalProvider',
+        element: <ExternalProvider/>,
+        children: [],
     },
     ...apps.map((a) => ({
         path: a.path,

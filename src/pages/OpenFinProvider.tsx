@@ -48,6 +48,8 @@ export const OpenFinProvider = () => {
 
     return (
         <div>
+            Main provider: {window.fin.me.uuid}
+            <br/>
             {isLoading ? 'Is loading ...' : (
                 <>
                     <button onClick={async () => {

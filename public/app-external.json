@@ -5,9 +5,9 @@
     "version": "30.110.74.13"
   },
   "platform": {
-    "uuid": "Main",
+    "uuid": "External",
     "autoShow": true,
-    "providerUrl": "http://localhost:3000/provider",
+    "providerUrl": "http://localhost:3000/externalProvider",
     "preventQuitOnLastWindowClosed": false,
     "interopBrokerConfiguration": {
       "contextGroups": [
