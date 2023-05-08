@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {subscribeToContext} from "../../openFin/interop";
 
 export const Files = () => {
     const [files, setFiles] = useState<string[]>([
@@ -7,6 +8,7 @@ export const Files = () => {
         '3',
         '4',
     ]);
+    const [ctx, setCtx] = useState<any>({});
 
     const initializeChannel = async () => {
         window.fin.InterApplicationBus.subscribe(
@@ -16,6 +18,10 @@ export const Files = () => {
                 setFiles((prev) => [...prev, t as string]);
             }
         );
+        await subscribeToContext((ctx) => {
+            console.log('ctx updated', ctx);
+            setCtx(ctx?.data?.currentUser);
+        });
     }
     useEffect(() => {
         initializeChannel();
@@ -45,21 +51,8 @@ export const Files = () => {
             <button onClick={createNewTab('right')}>right</button>
             <button onClick={createNewTab('left')}>left</button>
             <button onClick={createNewTab('bottom')}>bottom</button>
+            <br/>
+            Current user name: {JSON.stringify(ctx)}
         </div>
     )
 }
-
-
-// stack: Message[] = [];
-//
-// useReducer({
-//
-// })
-//
-// subscribe('on-new-message', () => {
-//     stack.push(msg);
-// });
-//
-// subscribe('get messages', () => {
-//     bus.publish()
-// })

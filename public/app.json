@@ -12,7 +12,9 @@
     "interopBrokerConfiguration": {
       "contextGroups": [
         {
-          "id": "user"
+          "id": "user",
+          "name": "userCtx",
+          "type": "auth"
         }
       ]
     }

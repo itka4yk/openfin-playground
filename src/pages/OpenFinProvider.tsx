@@ -4,16 +4,22 @@ import {registerDock, showDock} from "../openFin/registerDock";
 import {BrowserInitConfig, getCurrentSync, init} from "@openfin/workspace-platform";
 import {apps} from "../apps/apps";
 import {registerChannels} from "../openFin/registerChannels";
+import {initializeInterop} from "../openFin/interop";
 
 const initializePlatform = async (cb: () => void) => {
     const platform = window.fin.Platform.getCurrentSync();
     await platform.once("platform-api-ready", async () => {
-        await getConfiguredSettings();
-        await registerHome();
-        await registerDock();
-        await registerChannels();
-        showDock();
-        cb();
+        try {
+            await getConfiguredSettings();
+            await registerHome();
+            await registerDock();
+            await registerChannels();
+            await initializeInterop();
+            await showDock();
+            cb();
+        } catch (e) {
+            console.log('Failed to initialize openfin', e);
+        }
     });
 
     const browser: BrowserInitConfig = {};

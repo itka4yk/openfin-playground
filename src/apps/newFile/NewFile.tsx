@@ -1,10 +1,13 @@
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import ChannelClient from "@openfin/core/src/api/interappbus/channel/client";
 import {CHANNELS} from "../../openFin/channels";
+import {getCurrentCtx, updateContext} from "../../openFin/interop";
 
 export const NewFile = () => {
     const [connection, setConnection] = useState<ChannelClient | undefined>();
     const [fileName, setFileName] = useState<string>('');
+
+    const [userName, setUserName] = useState<string>('');
 
     function handle() {
         if (!connection) return;
@@ -19,9 +22,16 @@ export const NewFile = () => {
         setFileName('');
     }
 
+    const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserName(e.target.value);
+        updateContext(e.target.value);
+    }
+
     const initializeChannel = async () => {
         const connection = await window.fin.InterApplicationBus.Channel.connect(CHANNELS.files.title);
         setConnection(connection);
+        const ctx = await getCurrentCtx();
+        console.log('CTX', ctx);
     }
     useEffect(() => {
         initializeChannel();
@@ -43,6 +53,8 @@ export const NewFile = () => {
             <button onClick={createNewTab('right')}>right</button>
             <button onClick={createNewTab('left')}>left</button>
             <button onClick={createNewTab('bottom')}>bottom</button>
+            <br/>
+            <span>Update ctx user: </span><input value={userName} onChange={handleUserNameChange}/>
         </div>
     )
 };
