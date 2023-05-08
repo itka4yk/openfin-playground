@@ -1,0 +1,20 @@
+{
+  "devtools_port": 9090,
+  "licenseKey": "openfin-demo-license-key",
+  "runtime": {
+    "version": "30.110.74.13"
+  },
+  "platform": {
+    "uuid": "DasCatalog",
+    "autoShow": true,
+    "providerUrl": "http://localhost:3000/provider",
+    "preventQuitOnLastWindowClosed": false,
+    "interopBrokerConfiguration": {
+      "contextGroups": [
+        {
+          "id": "user"
+        }
+      ]
+    }
+  }
+}
